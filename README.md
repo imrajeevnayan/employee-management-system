@@ -21,6 +21,10 @@
 </p>
 
 <p align="center">
+  <a href="https://employee-management-system-22by.onrender.com/">
+    🚀 Live Demo
+  </a>
+  &nbsp; • &nbsp;
   <a href="https://imrajeevnayan.github.io/employee-management-system/">
     🌐 Live Documentation
   </a>
@@ -1052,8 +1056,9 @@ please consider giving the repository a ⭐.
 # 🔗 Project Links
 | Resource            | Link                                                                                                                                                               |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 🚀 Live Demo        | [https://employee-management-system-22by.onrender.com/](https://employee-management-system-22by.onrender.com/)                                                     |
 | ⭐ GitHub Repository | [https://github.com/imrajeevnayan/employee-management-system](https://github.com/imrajeevnayan/employee-management-system)                                         |
-| 🌐 Project Website  | [https://imrajeevnayan.github.io/employee-management-system/](https://imrajeevnayan.github.io/employee-management-system/)                                         |
+| 🌐 Documentation    | [https://imrajeevnayan.github.io/employee-management-system/](https://imrajeevnayan.github.io/employee-management-system/)                                         |
 | 📖 README           | [https://github.com/imrajeevnayan/employee-management-system/blob/main/README.md](https://github.com/imrajeevnayan/employee-management-system/blob/main/README.md) |
 | 🐛 Issues           | [https://github.com/imrajeevnayan/employee-management-system/issues](https://github.com/imrajeevnayan/employee-management-system/issues)                           |
 
@@ -1076,12 +1081,16 @@ Create a `LICENSE` file in the repository containing the full license text.
 <br><br>
 Spring Boot • Spring Security • Thymeleaf • Spring Data JPA • Hibernate • PostgreSQL • Flyway • Docker
 <br><br>
+<a href="https://employee-management-system-22by.onrender.com/">
+🚀 Visit Live Demo
+</a>
+  &nbsp;•&nbsp;
 <a href="https://github.com/imrajeevnayan/employee-management-system">
 ⭐ View Source Code on GitHub
 </a>
-  •  
+  &nbsp;•&nbsp;
 <a href="https://imrajeevnayan.github.io/employee-management-system/">
-🌐 Visit Project Website
+🌐 Live Documentation
 </a>
 
 </p>
