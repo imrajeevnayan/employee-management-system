@@ -1,4 +1,3 @@
-````markdown
 # 👥 Employee Management System — Spring Boot HRMS
 
 <p align="center">
