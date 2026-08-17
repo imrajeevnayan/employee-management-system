@@ -1060,42 +1060,7 @@ please consider giving the repository a ⭐.
 </p>
 
 ---
-
-# 🏷️ Recommended GitHub Topics
-
-Add these topics to the GitHub repository:
-
-```text
-employee-management-system
-employee-management
-spring-boot
-spring-boot-project
-spring-boot-example
-java
-java-project
-spring-security
-spring-security-rbac
-rbac
-thymeleaf
-spring-data-jpa
-hibernate
-postgresql
-hrms
-human-resource-management
-crud-application
-docker
-docker-compose
-flyway
-maven
-employee-management-system-spring-boot
-spring-boot-postgresql
-spring-boot-thymeleaf
-```
-
----
-
 # 🔗 Project Links
-
 | Resource            | Link                                                                                                                                                               |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | ⭐ GitHub Repository | [https://github.com/imrajeevnayan/employee-management-system](https://github.com/imrajeevnayan/employee-management-system)                                         |
@@ -1114,29 +1079,18 @@ For example:
 ```text
 MIT License
 ```
-
 Create a `LICENSE` file in the repository containing the full license text.
-
 ---
-
 # ❤️ Built With Java & Spring Boot
-
 <p align="center">
-
 <strong>👥 Employee Management System</strong>
-
 <br><br>
-
 Spring Boot • Spring Security • Thymeleaf • Spring Data JPA • Hibernate • PostgreSQL • Flyway • Docker
-
 <br><br>
-
 <a href="https://github.com/imrajeevnayan/employee-management-system">
 ⭐ View Source Code on GitHub
 </a>
-
   •  
-
 <a href="https://imrajeevnayan.github.io/employee-management-system/">
 🌐 Visit Project Website
 </a>
