@@ -55,6 +55,46 @@ This project is designed as a practical **Spring Boot project with source code**
 
 ---
 
+# 📸 Screenshots
+
+Here are the screenshots of the Employee Management System demonstrating the different roles and features:
+
+### 🔐 Login Page
+![Employee Management System Login](ems/images/login.jpeg)
+
+---
+
+### 📊 Dashboards by Role
+
+#### 👑 Admin Dashboard
+![Admin Dashboard](ems/images/admin-dashboard.jpeg)
+
+#### 👥 HR Dashboard
+![HR Dashboard](ems/images/hr-dashboard.jpeg)
+
+#### 👔 Manager Dashboard
+![Manager Dashboard](ems/images/mgr-dashboard.jpeg)
+
+#### 👤 Employee Dashboard
+![Employee Dashboard](ems/images/emp-dashboard.jpeg)
+
+---
+
+### 🏢 Department Management
+#### Admin View
+![Admin Departments](ems/images/admin-departments.jpeg)
+
+#### Manager View
+![Manager Departments](ems/images/mgr-departments.jpeg)
+
+---
+
+### 👥 Employee Directory
+#### Manager View (scoped to own department)
+![Manager Employees](ems/images/mgr-employees.jpeg)
+
+---
+
 ## ✨ Features
 
 ### 🔐 Authentication & Security
@@ -756,47 +796,6 @@ docker compose up --build
 ```
 
 Demo data will be recreated.
-
----
-
-# 📸 Screenshots
-
-Here are the screenshots of the Employee Management System demonstrating the different roles and features:
-
-### 🔐 Login Page
-![Employee Management System Login](ems/images/login.jpeg)
-
----
-
-### 📊 Dashboards by Role
-
-#### 👑 Admin Dashboard
-![Admin Dashboard](ems/images/admin-dashboard.jpeg)
-
-#### 👥 HR Dashboard
-![HR Dashboard](ems/images/hr-dashboard.jpeg)
-
-#### 👔 Manager Dashboard
-![Manager Dashboard](ems/images/mgr-dashboard.jpeg)
-
-#### 👤 Employee Dashboard
-![Employee Dashboard](ems/images/emp-dashboard.jpeg)
-
----
-
-### 🏢 Department Management
-#### Admin View
-![Admin Departments](ems/images/admin-departments.jpeg)
-
-#### Manager View
-![Manager Departments](ems/images/mgr-departments.jpeg)
-
----
-
-### 👥 Employee Directory
-#### Manager View (scoped to own department)
-![Manager Employees](ems/images/mgr-employees.jpeg)
-
 
 ---
 
