@@ -1,5 +1,3 @@
-`# 👥 Employee Management System` to the end and paste it directly into your repository's `README.md`.
-
 ````markdown
 # 👥 Employee Management System — Spring Boot HRMS
 
