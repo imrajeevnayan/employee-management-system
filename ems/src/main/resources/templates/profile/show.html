@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head('My profile')}"></head>
+<body class="app">
+<aside th:replace="~{fragments/layout :: sidenav('profile')}"></aside>
+<div class="app-wrapper">
+    <nav th:replace="~{fragments/layout :: topbar}"></nav>
+
+    <main class="container-fluid px-4 py-4">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+            <h1 class="h3 mb-0">My profile</h1>
+            <a class="btn btn-outline-primary btn-sm" th:href="@{/profile/password}">
+                <i class="bi bi-key me-1"></i>Change password
+            </a>
+        </div>
+
+        <div th:replace="~{fragments/layout :: flash}"></div>
+
+        <div class="row g-3">
+            <!-- Account card -->
+            <div class="col-lg-5">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-white fw-semibold"><i class="bi bi-shield-lock me-1"></i>Account</div>
+                    <div class="card-body">
+                        <dl class="row mb-0">
+                            <dt class="col-sm-4">Username</dt>
+                            <dd class="col-sm-8" th:text="${user.username}">user</dd>
+                            <dt class="col-sm-4">Email</dt>
+                            <dd class="col-sm-8" th:text="${user.email}">email</dd>
+                            <dt class="col-sm-4">Roles</dt>
+                            <dd class="col-sm-8">
+                                <span class="badge me-1" th:each="r : ${user.roles}"
+                                      th:classappend="${r.name.name() == 'ADMIN'} ? 'bg-danger' : (${r.name.name() == 'HR'} ? 'bg-info text-dark' : (${r.name.name() == 'MANAGER'} ? 'bg-primary' : 'bg-secondary'))"
+                                      th:text="${r.name.name()}">ROLE</span>
+                            </dd>
+                            <dt class="col-sm-4">Member since</dt>
+                            <dd class="col-sm-8" th:text="${#temporals.format(user.createdAt, 'dd MMM yyyy')}">01 Jan 2026</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Employee card (when linked) -->
+            <div class="col-lg-7">
+                <div class="card shadow-sm h-100" th:if="${user.employee}">
+                    <div class="card-header bg-white fw-semibold"><i class="bi bi-briefcase me-1"></i>Employment</div>
+                    <div class="card-body">
+                        <dl class="row mb-0">
+                            <dt class="col-sm-4">Employee code</dt>
+                            <dd class="col-sm-8" th:text="${user.employee.employeeCode}">EMP-0000</dd>
+                            <dt class="col-sm-4">Name</dt>
+                            <dd class="col-sm-8" th:text="${user.employee.fullName}">Name</dd>
+                            <dt class="col-sm-4">Department</dt>
+                            <dd class="col-sm-8" th:text="${user.employee.department.name}">Engineering</dd>
+                            <dt class="col-sm-4">Job title</dt>
+                            <dd class="col-sm-8" th:text="${user.employee.jobTitle}">Engineer</dd>
+                            <dt class="col-sm-4">Hire date</dt>
+                            <dd class="col-sm-8" th:text="${#temporals.format(user.employee.hireDate, 'dd MMM yyyy')}">01 Jan 2026</dd>
+                            <dt class="col-sm-4">Status</dt>
+                            <dd class="col-sm-8">
+                                <span class="badge"
+                                      th:classappend="${user.employee.status.name() == 'ACTIVE'} ? 'bg-success' : (${user.employee.status.name() == 'ON_LEAVE'} ? 'bg-warning text-dark' : 'bg-danger')"
+                                      th:text="${user.employee.status.label}">Active</span>
+                            </dd>
+                        </dl>
+                        <a sec:authorize="!hasAnyRole('ADMIN','HR','MANAGER')"
+                           th:if="${user.employee != null}"
+                           class="btn btn-outline-secondary btn-sm mt-3"
+                           th:href="@{'/employees/' + ${user.employee.id}}">
+                            <i class="bi bi-eye me-1"></i>View my record
+                        </a>
+                    </div>
+                </div>
+                <div class="card shadow-sm h-100 d-flex align-items-center justify-content-center" th:if="${user.employee == null}">
+                    <div class="card-body text-center text-muted py-5">
+                        <i class="bi bi-person-x display-6 d-block mb-2"></i>
+                        No employee record is linked to this account.<br>
+                        <span class="small">Contact HR or an administrator to be linked.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/layout :: footer}"></footer>
+</div>
+<div th:replace="~{fragments/layout :: scripts}"></div>
+</body>
+</html>

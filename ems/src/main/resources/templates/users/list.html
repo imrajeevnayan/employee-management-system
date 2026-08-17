@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Users & roles')}"></head>
+<body class="app">
+<aside th:replace="~{fragments/layout :: sidenav('users')}"></aside>
+<div class="app-wrapper">
+    <nav th:replace="~{fragments/layout :: topbar}"></nav>
+
+    <main class="container-fluid px-4 py-4">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+            <div>
+                <h1 class="h3 mb-1">Users &amp; roles</h1>
+                <p class="text-muted mb-0" th:text="${#lists.size(users)} + ' account(s)'">0 accounts</p>
+            </div>
+            <a class="btn btn-primary btn-sm" th:href="@{/users/new}">
+                <i class="bi bi-person-plus me-1"></i>Add user
+            </a>
+        </div>
+
+        <div th:replace="~{fragments/layout :: flash}"></div>
+
+        <div class="card shadow-sm">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                    <tr>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Roles</th>
+                        <th>Linked employee</th>
+                        <th>Status</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="u : ${users}">
+                        <td>
+                            <span class="fw-semibold" th:text="${u.username}">user</span>
+                            <div class="text-muted small"
+                                 th:text="'Joined ' + ${#temporals.format(u.createdAt, 'MMM yyyy')}">Joined</div>
+                        </td>
+                        <td th:text="${u.email}">email</td>
+                        <td>
+                            <span class="badge me-1" th:each="r : ${u.roles}"
+                                  th:classappend="${r.name.name() == 'ADMIN'} ? 'bg-danger' : (${r.name.name() == 'HR'} ? 'bg-info text-dark' : (${r.name.name() == 'MANAGER'} ? 'bg-primary' : 'bg-secondary'))"
+                                  th:text="${r.name.name()}">ROLE</span>
+                        </td>
+                        <td th:text="${u.employee != null} ? ${u.employee.fullName} + ' (' + ${u.employee.employeeCode} + ')' : '—'">
+                            —
+                        </td>
+                        <td>
+                            <span class="badge" th:classappend="${u.enabled} ? 'bg-success' : 'bg-secondary'"
+                                  th:text="${u.enabled} ? 'Enabled' : 'Disabled'">Enabled</span>
+                        </td>
+                        <td class="text-end">
+                            <div class="btn-group btn-group-sm" role="group">
+                                <a class="btn btn-outline-primary" th:href="@{'/users/' + ${u.id} + '/edit'}" title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <a class="btn btn-outline-secondary" th:href="@{'/users/' + ${u.id} + '/password'}"
+                                   title="Reset password">
+                                    <i class="bi bi-key"></i>
+                                </a>
+                                <form class="d-inline" th:action="@{'/users/' + ${u.id} + '/toggle-status'}" method="post"
+                                      onsubmit="return confirm('Change the status of this account?');">
+                                    <button type="submit" class="btn btn-outline-warning"
+                                            th:title="${u.enabled} ? 'Disable' : 'Enable'">
+                                        <i class="bi" th:classappend="${u.enabled} ? 'bi-pause-circle' : 'bi-play-circle'"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/layout :: footer}"></footer>
+</div>
+<div th:replace="~{fragments/layout :: scripts}"></div>
+</body>
+</html>

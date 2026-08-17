@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head('Departments')}"></head>
+<body class="app">
+<aside th:replace="~{fragments/layout :: sidenav('departments')}"></aside>
+<div class="app-wrapper">
+    <nav th:replace="~{fragments/layout :: topbar}"></nav>
+
+    <main class="container-fluid px-4 py-4">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+            <div>
+                <h1 class="h3 mb-1">Departments</h1>
+                <p class="text-muted mb-0" th:text="${#lists.size(departments)} + ' department(s)'">0 departments</p>
+            </div>
+            <a sec:authorize="hasAnyRole('ADMIN','HR')" class="btn btn-primary btn-sm" th:href="@{/departments/new}">
+                <i class="bi bi-plus-lg me-1"></i>Add department
+            </a>
+        </div>
+
+        <div th:replace="~{fragments/layout :: flash}"></div>
+
+        <div class="card shadow-sm">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                    <tr>
+                        <th>Name</th>
+                        <th>Code</th>
+                        <th>Location</th>
+                        <th>Employees</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="d : ${departments}">
+                        <td>
+                            <a class="fw-semibold text-decoration-none"
+                               th:href="@{'/departments/' + ${d.department.id}}"
+                               th:text="${d.department.name}">Engineering</a>
+                        </td>
+                        <td><span class="badge text-bg-light border" th:text="${d.department.code}">ENG</span></td>
+                        <td th:text="${d.department.location ?: '—'}">Bengaluru</td>
+                        <td>
+                            <span class="badge rounded-pill text-bg-primary" th:text="${d.employeeCount}">0</span>
+                        </td>
+                        <td class="text-end">
+                            <div class="btn-group btn-group-sm" role="group">
+                                <a class="btn btn-outline-secondary" th:href="@{'/departments/' + ${d.department.id}}"
+                                   title="View">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                <a sec:authorize="hasAnyRole('ADMIN','HR')"
+                                   class="btn btn-outline-primary"
+                                   th:href="@{'/departments/' + ${d.department.id} + '/edit'}" title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <form sec:authorize="hasAnyRole('ADMIN','HR')" class="d-inline"
+                                      th:action="@{'/departments/' + ${d.department.id} + '/delete'}" method="post"
+                                      onsubmit="return confirm('Delete this department? Only possible when it has no employees.');">
+                                    <button type="submit" class="btn btn-outline-danger" title="Delete">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(departments)}">
+                        <td colspan="5" class="text-center text-muted py-4">No departments yet.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/layout :: footer}"></footer>
+</div>
+<div th:replace="~{fragments/layout :: scripts}"></div>
+</body>
+</html>

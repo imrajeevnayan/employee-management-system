@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('User form')}"></head>
+<body class="app">
+<aside th:replace="~{fragments/layout :: sidenav('users')}"></aside>
+<div class="app-wrapper">
+    <nav th:replace="~{fragments/layout :: topbar}"></nav>
+
+    <main class="container-fluid px-4 py-4">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+            <h1 class="h3 mb-0" th:text="${form.id == null} ? 'Add user' : 'Edit user'">User</h1>
+            <a class="btn btn-outline-secondary btn-sm" th:href="@{/users}">
+                <i class="bi bi-arrow-left me-1"></i>Back to list
+            </a>
+        </div>
+
+        <div th:replace="~{fragments/layout :: flash}"></div>
+
+        <form th:object="${form}" method="post" novalidate
+              th:action="${form.id == null} ? @{/users} : @{/users/{id}(id=${form.id})}">
+            <div class="card shadow-sm" style="max-width: 760px;">
+                <div class="card-body p-4">
+                    <div class="alert alert-danger" role="alert" th:if="${#fields.hasGlobalErrors()}">
+                        <span th:each="err : ${#fields.globalErrors()}" th:text="${err}">Error</span>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label" for="username">Username <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="username" th:field="*{username}"
+                                   th:readonly="${form.id != null}"
+                                   th:classappend="${#fields.hasErrors('username')} ? 'is-invalid'" autofocus>
+                            <div class="invalid-feedback" th:errors="*{username}">Error</div>
+                            <div class="form-text" th:if="${form.id != null}">Usernames are immutable.</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="email">Email <span class="text-danger">*</span></label>
+                            <input type="email" class="form-control" id="email" th:field="*{email}"
+                                   th:classappend="${#fields.hasErrors('email')} ? 'is-invalid'">
+                            <div class="invalid-feedback" th:errors="*{email}">Error</div>
+                        </div>
+                        <div class="col-md-6" th:if="${form.id == null}">
+                            <label class="form-label" for="password">Password <span class="text-danger">*</span></label>
+                            <input type="password" class="form-control" id="password" th:field="*{password}"
+                                   autocomplete="new-password"
+                                   th:classappend="${#fields.hasErrors('password')} ? 'is-invalid'">
+                            <div class="invalid-feedback" th:errors="*{password}">Error</div>
+                            <div class="form-text">Min. 8 characters with upper case, lower case, a digit and a special character.</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="employeeId">Linked employee</label>
+                            <select class="form-select" id="employeeId" th:field="*{employeeId}"
+                                    th:classappend="${#fields.hasErrors('employeeId')} ? 'is-invalid'">
+                                <option value="">— None —</option>
+                                <option th:each="e : ${unlinkedEmployees}" th:value="${e.id}"
+                                        th:text="${e.fullName} + ' (' + ${e.employeeCode} + ')'">Employee</option>
+                                <option th:if="${form.employeeId != null}" th:value="${form.employeeId}" selected
+                                        th:text="'(keep current link)'">(keep current link)</option>
+                            </select>
+                            <div class="invalid-feedback" th:errors="*{employeeId}">Error</div>
+                            <div class="form-text">Links a login account to an employee record (used for manager scoping).</div>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label d-block">Roles <span class="text-danger">*</span></label>
+                            <div class="form-check form-check-inline"
+                                 th:each="r, iter : ${allRoles}">
+                                <input type="checkbox" class="form-check-input" th:field="*{roles}" th:value="${r}"
+                                       th:id="'role-' + ${iter.index}">
+                                <label class="form-check-label" th:for="'role-' + ${iter.index}" th:text="${r}">ROLE</label>
+                            </div>
+                            <div class="text-danger small" th:if="${#fields.hasErrors('roles')}"
+                                 th:errors="*{roles}">Error</div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-check form-switch">
+                                <input type="checkbox" class="form-check-input" id="enabled" th:field="*{enabled}">
+                                <label class="form-check-label" for="enabled">Account enabled</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-white d-flex justify-content-end gap-2 p-3">
+                    <a class="btn btn-outline-secondary" th:href="@{/users}">Cancel</a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-check-lg me-1"></i>Save user
+                    </button>
+                </div>
+            </div>
+        </form>
+    </main>
+
+    <footer th:replace="~{fragments/layout :: footer}"></footer>
+</div>
+<div th:replace="~{fragments/layout :: scripts}"></div>
+</body>
+</html>

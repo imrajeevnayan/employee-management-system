@@ -1,0 +1,55 @@
+spring:
+  application:
+    name: EMS
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ems
+    username: ems
+    password: ems
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
+
+  thymeleaf:
+    cache: true
+
+server:
+  port: 8080
+  shutdown: graceful
+  error:
+    whitelabel:
+      enabled: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+logging:
+  level:
+    com.ems: INFO
+    org.springframework.security: WARN
+
+ems:
+  seed:
+    admin-password: ${EMS_ADMIN_PASSWORD:Admin@123}
+    hr-password: ${EMS_HR_PASSWORD:Hr@12345}
+    manager-password: ${EMS_MANAGER_PASSWORD:Manager@123}
+    employee-password: ${EMS_EMPLOYEE_PASSWORD:Employee@123}

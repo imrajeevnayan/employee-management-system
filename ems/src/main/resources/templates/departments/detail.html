@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head('Department details')}"></head>
+<body class="app">
+<aside th:replace="~{fragments/layout :: sidenav('departments')}"></aside>
+<div class="app-wrapper">
+    <nav th:replace="~{fragments/layout :: topbar}"></nav>
+
+    <main class="container-fluid px-4 py-4">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+            <div>
+                <h1 class="h3 mb-1" th:text="${department.name}">Engineering</h1>
+                <p class="text-muted mb-0">
+                    <span class="badge text-bg-light border" th:text="${department.code}">ENG</span>
+                    <span th:if="${department.location}" th:text="' · ' + ${department.location}"> · Bengaluru</span>
+                </p>
+            </div>
+            <div class="d-flex gap-2">
+                <a class="btn btn-outline-secondary btn-sm" th:href="@{/departments}">
+                    <i class="bi bi-arrow-left me-1"></i>Back to list
+                </a>
+                <a sec:authorize="hasAnyRole('ADMIN','HR')" class="btn btn-primary btn-sm"
+                   th:href="@{'/departments/' + ${department.id} + '/edit'}">
+                    <i class="bi bi-pencil me-1"></i>Edit
+                </a>
+            </div>
+        </div>
+
+        <div th:replace="~{fragments/layout :: flash}"></div>
+
+        <div class="card shadow-sm mb-4" th:if="${department.description}">
+            <div class="card-body text-muted" th:text="${department.description}">Description</div>
+        </div>
+
+        <div class="card shadow-sm">
+            <div class="card-header bg-white fw-semibold">
+                <i class="bi bi-people me-1"></i>Employees
+                <span class="badge rounded-pill text-bg-primary ms-2" th:text="${#lists.size(employees)}">0</span>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                    <tr>
+                        <th>Code</th>
+                        <th>Employee</th>
+                        <th>Job title</th>
+                        <th>Status</th>
+                        <th>Hired</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="e : ${employees}">
+                        <td class="text-muted small" th:text="${e.employeeCode}">EMP-0000</td>
+                        <td>
+                            <a class="fw-semibold text-decoration-none" th:href="@{'/employees/' + ${e.id}}"
+                               th:text="${e.fullName}">Name</a>
+                        </td>
+                        <td th:text="${e.jobTitle}">Engineer</td>
+                        <td>
+                            <span class="badge"
+                                  th:classappend="${e.status.name() == 'ACTIVE'} ? 'bg-success' : (${e.status.name() == 'ON_LEAVE'} ? 'bg-warning text-dark' : 'bg-danger')"
+                                  th:text="${e.status.label}">Active</span>
+                        </td>
+                        <td th:text="${#temporals.format(e.hireDate, 'dd MMM yyyy')}">01 Jan 2026</td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(employees)}">
+                        <td colspan="5" class="text-center text-muted py-4">No employees assigned to this department.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/layout :: footer}"></footer>
+</div>
+<div th:replace="~{fragments/layout :: scripts}"></div>
+</body>
+</html>

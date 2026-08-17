@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head('Dashboard')}"></head>
+<body class="app">
+<aside th:replace="~{fragments/layout :: sidenav('dashboard')}"></aside>
+<div class="app-wrapper">
+    <nav th:replace="~{fragments/layout :: topbar}"></nav>
+
+    <main class="container-fluid px-4 py-4">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+            <div>
+                <h1 class="h3 mb-1">Dashboard</h1>
+                <p class="text-muted mb-0">Welcome back, <span th:text="${currentUser?.username}">user</span>.</p>
+            </div>
+            <div class="d-flex gap-2">
+                <a sec:authorize="hasAnyRole('ADMIN','HR')" class="btn btn-primary btn-sm"
+                   th:href="@{/employees/new}">
+                    <i class="bi bi-person-plus me-1"></i>Add employee
+                </a>
+                <a sec:authorize="hasAnyRole('ADMIN','HR')" class="btn btn-outline-primary btn-sm"
+                   th:href="@{/departments/new}">
+                    <i class="bi bi-plus-lg me-1"></i>Add department
+                </a>
+                <a sec:authorize="hasRole('ADMIN')" class="btn btn-outline-secondary btn-sm"
+                   th:href="@{/users/new}">
+                    <i class="bi bi-person-gear me-1"></i>Add user
+                </a>
+            </div>
+        </div>
+
+        <div th:replace="~{fragments/layout :: flash}"></div>
+
+        <!-- Stat cards -->
+        <div class="row g-3 mb-4">
+            <div class="col-6 col-xl-3">
+                <div class="card stat-card h-100">
+                    <div class="card-body d-flex align-items-center gap-3">
+                        <div class="stat-icon bg-primary bg-opacity-10 text-primary"><i class="bi bi-people-fill"></i></div>
+                        <div>
+                            <div class="stat-value" th:text="${data.totalEmployees}">0</div>
+                            <div class="stat-label">Total employees</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-xl-3">
+                <div class="card stat-card h-100">
+                    <div class="card-body d-flex align-items-center gap-3">
+                        <div class="stat-icon bg-success bg-opacity-10 text-success"><i class="bi bi-person-check"></i></div>
+                        <div>
+                            <div class="stat-value" th:text="${data.activeEmployees}">0</div>
+                            <div class="stat-label">Active</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-xl-3">
+                <div class="card stat-card h-100">
+                    <div class="card-body d-flex align-items-center gap-3">
+                        <div class="stat-icon bg-warning bg-opacity-10 text-warning"><i class="bi bi-hourglass-split"></i></div>
+                        <div>
+                            <div class="stat-value" th:text="${data.onLeaveEmployees}">0</div>
+                            <div class="stat-label">On leave</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-xl-3">
+                <div class="card stat-card h-100">
+                    <div class="card-body d-flex align-items-center gap-3">
+                        <div class="stat-icon bg-info bg-opacity-10 text-info"><i class="bi bi-building"></i></div>
+                        <div>
+                            <div class="stat-value" th:text="${data.departmentCount}">0</div>
+                            <div class="stat-label">Departments</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <!-- Recent hires -->
+            <div class="col-lg-7">
+                <div class="card h-100">
+                    <div class="card-header bg-white fw-semibold">
+                        <i class="bi bi-clock-history me-1"></i>Recent hires
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light">
+                            <tr>
+                                <th>Employee</th>
+                                <th>Department</th>
+                                <th>Job title</th>
+                                <th>Hired</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="e : ${data.recentHires}">
+                                <td>
+                                    <a class="fw-semibold text-decoration-none"
+                                       th:href="@{'/employees/' + ${e.id}}" th:text="${e.fullName}">Name</a>
+                                    <div class="text-muted small" th:text="${e.employeeCode}">EMP-0000</div>
+                                </td>
+                                <td th:text="${e.department.name}">Engineering</td>
+                                <td th:text="${e.jobTitle}">Engineer</td>
+                                <td th:text="${#temporals.format(e.hireDate, 'dd MMM yyyy')}">01 Jan 2026</td>
+                            </tr>
+                            <tr th:if="${#lists.isEmpty(data.recentHires)}">
+                                <td colspan="4" class="text-center text-muted py-4">No employees yet.</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Distribution by department -->
+            <div class="col-lg-5">
+                <div class="card h-100">
+                    <div class="card-header bg-white fw-semibold">
+                        <i class="bi bi-building me-1"></i>Employees by department
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3" th:each="s : ${data.departmentStats}">
+                            <div class="d-flex justify-content-between small mb-1">
+                                <span th:text="${s.departmentName}">Engineering</span>
+                                <span class="text-muted" th:text="${s.employeeCount}">0</span>
+                            </div>
+                            <div class="progress" style="height: 8px;">
+                                <div class="progress-bar" role="progressbar"
+                                     th:style="'width:' + ${s.percentage} + '%'"
+                                     th:aria-valuenow="${s.percentage}" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <p th:if="${#lists.isEmpty(data.departmentStats)}" class="text-muted small mb-0">
+                            No departments yet.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/layout :: footer}"></footer>
+</div>
+<div th:replace="~{fragments/layout :: scripts}"></div>
+</body>
+</html>

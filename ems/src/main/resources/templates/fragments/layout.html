@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+
+<!-- Head: shared meta, title and stylesheets -->
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${title} + ' · EMS'">EMS</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" th:href="@{/css/ems.css}">
+</head>
+
+<!-- Topbar: sticky header with the signed-in user's dropdown -->
+<nav th:fragment="topbar" class="topbar navbar navbar-expand navbar-light bg-white shadow-sm sticky-top">
+    <div class="container-fluid px-4">
+        <a class="navbar-brand d-lg-none fw-bold" th:href="@{/dashboard}">
+            <i class="bi bi-people-fill text-primary me-1"></i>EMS
+        </a>
+        <div class="ms-auto d-flex align-items-center gap-2">
+            <div class="dropdown">
+                <button class="btn btn-light border dropdown-toggle" type="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-person-circle me-1 text-primary"></i>
+                    <span th:text="${currentUser?.username}">account</span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow">
+                    <li>
+                        <a class="dropdown-item" th:href="@{/profile}">
+                            <i class="bi bi-person me-2"></i>My profile
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" th:href="@{/profile/password}">
+                            <i class="bi bi-key me-2"></i>Change password
+                        </a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <!-- Quick links for smaller screens where the sidebar is hidden -->
+                    <li class="d-lg-none">
+                        <a sec:authorize="hasAnyRole('ADMIN','HR','MANAGER')" class="dropdown-item" th:href="@{/employees}">
+                            <i class="bi bi-people me-2"></i>Employees
+                        </a>
+                        <a sec:authorize="hasAnyRole('ADMIN','HR','MANAGER')" class="dropdown-item" th:href="@{/departments}">
+                            <i class="bi bi-building me-2"></i>Departments
+                        </a>
+                        <a sec:authorize="hasRole('ADMIN')" class="dropdown-item" th:href="@{/users}">
+                            <i class="bi bi-person-gear me-2"></i>Users &amp; roles
+                        </a>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                        <form th:action="@{/logout}" method="post">
+                            <button type="submit" class="dropdown-item text-danger">
+                                <i class="bi bi-box-arrow-right me-2"></i>Sign out
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Sidebar: role-aware main navigation -->
+<aside th:fragment="sidenav(active)" class="sidenav d-none d-lg-flex flex-column">
+    <a class="brand" th:href="@{/dashboard}">
+        <i class="bi bi-people-fill brand-icon"></i>
+        <span class="brand-text">EMS</span>
+    </a>
+    <span class="sidenav-label">Main menu</span>
+    <nav class="nav flex-column flex-grow-1">
+        <a class="nav-link" th:href="@{/dashboard}" th:classappend="${active == 'dashboard'} ? active">
+            <i class="bi bi-speedometer2 me-2"></i>Dashboard
+        </a>
+        <a sec:authorize="hasAnyRole('ADMIN','HR','MANAGER')" class="nav-link"
+           th:href="@{/employees}" th:classappend="${active == 'employees'} ? active">
+            <i class="bi bi-people me-2"></i>Employees
+        </a>
+        <a sec:authorize="hasAnyRole('ADMIN','HR','MANAGER')" class="nav-link"
+           th:href="@{/departments}" th:classappend="${active == 'departments'} ? active">
+            <i class="bi bi-building me-2"></i>Departments
+        </a>
+        <a sec:authorize="hasRole('ADMIN')" class="nav-link"
+           th:href="@{/users}" th:classappend="${active == 'users'} ? active">
+            <i class="bi bi-person-gear me-2"></i>Users &amp; roles
+        </a>
+        <hr class="nav-divider">
+        <a class="nav-link" th:href="@{/profile}" th:classappend="${active == 'profile'} ? active">
+            <i class="bi bi-person-circle me-2"></i>My profile
+        </a>
+    </nav>
+    <div class="sidenav-footer">EMS · v1.0.0</div>
+</aside>
+
+<!-- Flash messages: success/error banners driven by flash attributes -->
+<div th:fragment="flash">
+    <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${successMessage}">
+        <i class="bi bi-check-circle-fill me-1"></i>
+        <span th:text="${successMessage}">Done.</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${errorMessage}">
+        <i class="bi bi-exclamation-triangle-fill me-1"></i>
+        <span th:text="${errorMessage}">Error.</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>
+
+<!-- Footer + scripts -->
+<footer th:fragment="footer" class="app-footer text-muted small mt-auto">
+    <div class="container-fluid px-4 py-3 d-flex justify-content-between">
+        <span>EMS — Employee Management System</span>
+        <span>© 2026</span>
+    </div>
+</footer>
+
+<div th:fragment="scripts">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</div>
+
+</body>
+</html>

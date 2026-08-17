@@ -1,0 +1,38 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: ems-db
+    environment:
+      POSTGRES_DB: ems
+      POSTGRES_USER: ems
+      POSTGRES_PASSWORD: ems_secret
+    ports:
+      # Exposed on localhost only, for dev access with psql/IDE clients.
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - ems_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  app:
+    build: .
+    container_name: ems-app
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/ems
+      SPRING_DATASOURCE_USERNAME: ems
+      SPRING_DATASOURCE_PASSWORD: ems_secret
+      # Seed admin password is only applied on first boot (empty database).
+      EMS_ADMIN_PASSWORD: ${EMS_ADMIN_PASSWORD:-Admin@123}
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+volumes:
+  ems_pgdata:

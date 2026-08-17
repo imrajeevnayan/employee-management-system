@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Replace "your-username" with your GitHub username once GitHub Pages is live.
+Sitemap: https://your-username.github.io/ems/sitemap.xml

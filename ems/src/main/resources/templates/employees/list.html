@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head('Employees')}"></head>
+<body class="app">
+<aside th:replace="~{fragments/layout :: sidenav('employees')}"></aside>
+<div class="app-wrapper">
+    <nav th:replace="~{fragments/layout :: topbar}"></nav>
+
+    <main class="container-fluid px-4 py-4">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+            <div>
+                <h1 class="h3 mb-1">Employees</h1>
+                <p class="text-muted mb-0" th:text="${page.totalElements} + ' record(s)'">0 records</p>
+            </div>
+            <a sec:authorize="hasAnyRole('ADMIN','HR')" class="btn btn-primary btn-sm" th:href="@{/employees/new}">
+                <i class="bi bi-person-plus me-1"></i>Add employee
+            </a>
+        </div>
+
+        <div th:replace="~{fragments/layout :: flash}"></div>
+
+        <!-- Filters -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <form th:action="@{/employees}" method="get" class="row g-2 align-items-end">
+                    <div class="col-12 col-md-4">
+                        <label class="form-label small mb-1" for="q">Search</label>
+                        <input type="text" class="form-control" id="q" name="q" placeholder="Name, code, email or job title…"
+                               th:value="${q}">
+                    </div>
+                    <div class="col-6 col-md-2">
+                        <label class="form-label small mb-1" for="departmentId">Department</label>
+                        <select class="form-select" id="departmentId" name="departmentId">
+                            <option value="">All</option>
+                            <option th:each="d : ${departments}" th:value="${d.id}" th:text="${d.name}"
+                                    th:selected="${departmentId != null and departmentId == d.id}">Dept</option>
+                        </select>
+                    </div>
+                    <div class="col-6 col-md-2">
+                        <label class="form-label small mb-1" for="status">Status</label>
+                        <select class="form-select" id="status" name="status">
+                            <option value="">All</option>
+                            <option th:each="s : ${statuses}" th:value="${s.name()}" th:text="${s.label}"
+                                    th:selected="${status != null and status.name() == s.name()}">Active</option>
+                        </select>
+                    </div>
+                    <div class="col-6 col-md-2">
+                        <label class="form-label small mb-1" for="sort">Sort by</label>
+                        <select class="form-select" id="sort" name="sort">
+                            <option value="lastName" th:selected="${sort == 'lastName'}">Name (A–Z)</option>
+                            <option value="lastName,desc" th:selected="${sort == 'lastName,desc'}">Name (Z–A)</option>
+                            <option value="hireDate,desc" th:selected="${sort == 'hireDate,desc'}">Newest hires</option>
+                            <option value="salary,desc" th:selected="${sort == 'salary,desc'}">Salary (high→low)</option>
+                        </select>
+                    </div>
+                    <div class="col-6 col-md-2 d-grid">
+                        <button type="submit" class="btn btn-outline-primary">
+                            <i class="bi bi-funnel me-1"></i>Apply
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Directory -->
+        <div class="card shadow-sm">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                    <tr>
+                        <th>Code</th>
+                        <th>Employee</th>
+                        <th>Department</th>
+                        <th>Job title</th>
+                        <th>Status</th>
+                        <th>Hired</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="e : ${page.content}">
+                        <td class="text-muted small" th:text="${e.employeeCode}">EMP-0000</td>
+                        <td>
+                            <a class="fw-semibold text-decoration-none" th:href="@{'/employees/' + ${e.id}}"
+                               th:text="${e.fullName}">Full Name</a>
+                            <div class="text-muted small" th:text="${e.email}">email@ems.local</div>
+                        </td>
+                        <td th:text="${e.department.name}">Engineering</td>
+                        <td th:text="${e.jobTitle}">Engineer</td>
+                        <td>
+                            <span class="badge"
+                                  th:classappend="${e.status.name() == 'ACTIVE'} ? 'bg-success' : (${e.status.name() == 'ON_LEAVE'} ? 'bg-warning text-dark' : 'bg-danger')"
+                                  th:text="${e.status.label}">Active</span>
+                        </td>
+                        <td th:text="${#temporals.format(e.hireDate, 'dd MMM yyyy')}">01 Jan 2026</td>
+                        <td class="text-end">
+                            <div class="btn-group btn-group-sm" role="group">
+                                <a class="btn btn-outline-secondary" th:href="@{'/employees/' + ${e.id}}"
+                                   title="View details">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                <a sec:authorize="hasAnyRole('ADMIN','HR','MANAGER')"
+                                   th:if="${canManageAll or (managerDepartmentId != null and e.department.id == managerDepartmentId)}"
+                                   class="btn btn-outline-primary" th:href="@{'/employees/' + ${e.id} + '/edit'}"
+                                   title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <form sec:authorize="hasRole('ADMIN')" class="d-inline"
+                                      th:action="@{'/employees/' + ${e.id} + '/delete'}" method="post"
+                                      onsubmit="return confirm('Delete this employee record? This cannot be undone.');">
+                                    <button type="submit" class="btn btn-outline-danger" title="Delete">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(page.content)}">
+                        <td colspan="7" class="text-center text-muted py-4">No employees match the current filters.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="card-footer bg-white" th:if="${page.totalPages > 1}">
+                <nav aria-label="Employee pages">
+                    <ul class="pagination pagination-sm justify-content-center mb-0">
+                        <li class="page-item" th:classappend="${page.first} ? disabled">
+                            <a class="page-link" aria-label="Previous"
+                               th:href="@{/employees(page=${page.number - 1}, q=${q}, departmentId=${departmentId}, status=${status}, sort=${sort})}">«</a>
+                        </li>
+                        <li class="page-item" th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}"
+                            th:classappend="${i == page.number} ? active">
+                            <a class="page-link" th:text="${i + 1}"
+                               th:href="@{/employees(page=${i}, q=${q}, departmentId=${departmentId}, status=${status}, sort=${sort})}">1</a>
+                        </li>
+                        <li class="page-item" th:classappend="${page.last} ? disabled">
+                            <a class="page-link" aria-label="Next"
+                               th:href="@{/employees(page=${page.number + 1}, q=${q}, departmentId=${departmentId}, status=${status}, sort=${sort})}">»</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/layout :: footer}"></footer>
+</div>
+<div th:replace="~{fragments/layout :: scripts}"></div>
+</body>
+</html>
