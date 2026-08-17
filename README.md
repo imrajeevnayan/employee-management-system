@@ -761,52 +761,42 @@ Demo data will be recreated.
 
 # 📸 Screenshots
 
-Add real screenshots of your application to make the GitHub repository more attractive.
+Here are the screenshots of the Employee Management System demonstrating the different roles and features:
 
-Recommended folder:
+### 🔐 Login Page
+![Employee Management System Login](ems/images/login.jpeg)
 
-```text
-docs/images/
-```
+---
 
-Recommended screenshots:
+### 📊 Dashboards by Role
 
-```text
-docs/images/
-├── login.png
-├── dashboard.png
-├── employees.png
-├── employee-form.png
-├── departments.png
-├── users.png
-└── profile.png
-```
+#### 👑 Admin Dashboard
+![Admin Dashboard](ems/images/admin-dashboard.jpeg)
 
-Then add them to this README:
+#### 👥 HR Dashboard
+![HR Dashboard](ems/images/hr-dashboard.jpeg)
 
-```markdown
-## 📸 Screenshots
+#### 👔 Manager Dashboard
+![Manager Dashboard](ems/images/mgr-dashboard.jpeg)
 
-### 🔐 Login
+#### 👤 Employee Dashboard
+![Employee Dashboard](ems/images/emp-dashboard.jpeg)
 
-![Employee Management System Login](docs/images/login.png)
-
-### 📊 Dashboard
-
-![Employee Management System Dashboard](docs/images/dashboard.png)
-
-### 👥 Employee Management
-
-![Employee Management System Employees](docs/images/employees.png)
+---
 
 ### 🏢 Department Management
+#### Admin View
+![Admin Departments](ems/images/admin-departments.jpeg)
 
-![Employee Management System Departments](docs/images/departments.png)
+#### Manager View
+![Manager Departments](ems/images/mgr-departments.jpeg)
 
-### 👤 User Management
+---
 
-![Employee Management System Users](docs/images/users.png)
-```
+### 👥 Employee Directory
+#### Manager View (scoped to own department)
+![Manager Employees](ems/images/mgr-employees.jpeg)
+
 
 ---
 
