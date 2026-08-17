@@ -1,395 +1,1279 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- ============================================================================
-     EMS — Employee Management System (Spring Boot HRMS) · GitHub Pages landing page
-     SEO: replace every occurrence of "your-username" with your GitHub username
-     (canonical URL, Open Graph, GitHub links, robots.txt and sitemap.xml).
-     ========================================================================== -->
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Employee Management System Spring Boot — HRMS Project with Source Code</title>
-<meta name="description" content="Production-ready Spring Boot employee management system (HRMS): Thymeleaf UI, Spring Security login & RBAC, Spring Data JPA, PostgreSQL, Flyway and Docker Compose. Full source code, 27 tests.">
-<meta name="keywords" content="employee management system spring boot, spring boot project with source code, hrm project github, spring boot thymeleaf example, spring security role based access control example, spring data jpa pagination, spring boot postgresql docker compose, hrms open source, java 21, flyway migration example">
-<meta name="robots" content="index, follow">
-<meta name="author" content="EMS Project">
-<link rel="canonical" href="https://your-username.github.io/ems/">
+  <!-- ============================================================================
+       EMS — Employee Management System (Spring Boot HRMS)
+       SEO Landing Page
+       GitHub: https://github.com/imrajeevnayan/employee-management-system
+       ========================================================================== -->
 
-<!-- Open Graph / Twitter -->
-<meta property="og:type" content="website">
-<meta property="og:title" content="Employee Management System in Spring Boot — HRMS with Thymeleaf, Spring Security RBAC & PostgreSQL">
-<meta property="og:description" content="Open-source Spring Boot HRMS: login, admin/HR/manager/employee roles, employee & department CRUD, search & pagination, Docker Compose. Full source code.">
-<meta property="og:url" content="https://your-username.github.io/ems/">
-<meta property="og:site_name" content="EMS — Employee Management System">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Employee Management System in Spring Boot (HRMS)">
-<meta name="twitter:description" content="Spring Boot 3 + Thymeleaf + Spring Security RBAC + Spring Data JPA + PostgreSQL + Docker. One-command demo.">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👥</text></svg>">
+  <!-- Primary SEO -->
+  <title>Employee Management System Spring Boot — HRMS Project with Source Code</title>
 
-<!-- Structured data: rich results for Google -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "SoftwareApplication",
-      "name": "EMS — Employee Management System in Spring Boot",
-      "applicationCategory": "BusinessApplication",
-      "operatingSystem": "Cross-platform (Docker)",
-      "programmingLanguage": "Java 21",
-      "softwareVersion": "1.0.0",
-      "url": "https://github.com/your-username/ems",
-      "description": "Open-source HRMS built with Spring Boot 3, Thymeleaf, Spring Security (login + role-based access control), Spring Data JPA, PostgreSQL, Flyway and Docker Compose.",
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-      "keywords": "employee management system, spring boot, hrms, spring security, rbac, thymeleaf, spring data jpa, postgresql, docker compose"
-    },
-    {
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "How do I run the Spring Boot employee management system?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Clone the repository, run 'docker compose up --build' in the ems folder and open http://localhost:8080. PostgreSQL, schema migrations and demo data are provisioned automatically." }
+  <meta
+    name="description"
+    content="Employee Management System built with Spring Boot, Thymeleaf, Spring Security RBAC, Spring Data JPA, PostgreSQL, Flyway and Docker Compose. Open-source HRMS project with full source code."
+  >
+
+  <meta
+    name="keywords"
+    content="employee management system, employee management system spring boot, employee management system github, spring boot employee management system, spring boot project with source code, HRMS spring boot, human resource management system, Spring Security RBAC, Spring Data JPA, Thymeleaf, PostgreSQL, Docker Compose, Java 21, Flyway"
+  >
+
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Rajeev Nayan">
+
+  <!-- Canonical -->
+  <link
+    rel="canonical"
+    href="https://imrajeevnayan.github.io/employee-management-system/"
+  >
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+
+  <meta
+    property="og:title"
+    content="Employee Management System in Spring Boot — HRMS Project"
+  >
+
+  <meta
+    property="og:description"
+    content="Open-source Employee Management System built with Spring Boot, Thymeleaf, Spring Security RBAC, Spring Data JPA, PostgreSQL, Flyway and Docker Compose."
+  >
+
+  <meta
+    property="og:url"
+    content="https://imrajeevnayan.github.io/employee-management-system/"
+  >
+
+  <meta
+    property="og:site_name"
+    content="Employee Management System"
+  >
+
+  <meta
+    property="og:image"
+    content="https://imrajeevnayan.github.io/employee-management-system/og-image.png"
+  >
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+
+  <meta
+    name="twitter:title"
+    content="Employee Management System in Spring Boot — HRMS"
+  >
+
+  <meta
+    name="twitter:description"
+    content="Spring Boot Employee Management System with Thymeleaf, Spring Security RBAC, JPA, PostgreSQL, Flyway and Docker."
+  >
+
+  <meta
+    name="twitter:image"
+    content="https://imrajeevnayan.github.io/employee-management-system/og-image.png"
+  >
+
+  <!-- Favicon -->
+  <link
+    rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👥</text></svg>"
+  >
+
+  <!-- ========================================================================
+       STRUCTURED DATA
+       ======================================================================== -->
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "Employee Management System",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Cross-platform",
+        "programmingLanguage": "Java",
+        "softwareVersion": "1.0.0",
+        "url": "https://github.com/imrajeevnayan/employee-management-system",
+        "description": "Open-source Employee Management System and HRMS built with Spring Boot, Thymeleaf, Spring Security, Spring Data JPA, PostgreSQL, Flyway and Docker Compose.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
         },
-        {
-          "@type": "Question",
-          "name": "What are the default login credentials?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Four demo accounts are seeded — admin / Admin@123, hr.kavya / Hr@12345, mgr.arjun / Manager@123 and emp.priya / Employee@123 — one for each role: ADMIN, HR, MANAGER and EMPLOYEE." }
-        },
-        {
-          "@type": "Question",
-          "name": "How is role-based access control implemented in Spring Security?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Three enforcement layers: URL request-matcher rules in SecurityConfig, @PreAuthorize method security on mutating operations, and service-level checks for fine-grained rules such as managers editing only employees of their own department." }
-        },
-        {
-          "@type": "Question",
-          "name": "Which database does the project use?",
-          "acceptedAnswer": { "@type": "Answer", "text": "PostgreSQL 16 in development and Docker, with Flyway versioned migrations and Hibernate ddl-auto=validate. Tests run against in-memory H2 in PostgreSQL compatibility mode." }
-        }
-      ]
+        "keywords": "employee management system, spring boot, HRMS, spring security, RBAC, thymeleaf, spring data jpa, postgresql, docker compose"
+      },
+      {
+        "@type": "WebSite",
+        "name": "Employee Management System",
+        "url": "https://imrajeevnayan.github.io/employee-management-system/",
+        "description": "Employee Management System Spring Boot HRMS project with source code."
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How do I run the Employee Management System?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Clone the GitHub repository, enter the employee-management-system directory, run docker compose up --build and open http://localhost:8080."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What technologies are used in the Employee Management System?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The project uses Java, Spring Boot, Spring MVC, Thymeleaf, Spring Security, Spring Data JPA, PostgreSQL, Flyway, Bootstrap, Docker Compose and JUnit."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How is role-based access control implemented?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Role-based access control is implemented using Spring Security with URL authorization, method-level authorization and service-level business rules."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Which database does the project use?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The Employee Management System uses PostgreSQL with Flyway database migrations."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- ========================================================================
+       STYLES
+       ======================================================================== -->
+
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1e3a8a;
+      --dark: #0f172a;
+      --dark-2: #1e293b;
+      --muted: #64748b;
+      --bg: #f1f5f9;
+      --white: #ffffff;
+      --border: #e2e8f0;
+      --radius: 14px;
     }
-  ]
-}
-</script>
 
-<style>
-  :root {
-    --primary: #2563eb;
-    --primary-dark: #1e3a8a;
-    --dark: #0f172a;
-    --dark-2: #1e293b;
-    --muted: #64748b;
-    --bg: #f1f5f9;
-    --radius: 14px;
-  }
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    margin: 0;
-    font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
-    background: var(--bg);
-    color: var(--dark);
-    line-height: 1.65;
-  }
-  a { color: var(--primary); }
+    * {
+      box-sizing: border-box;
+    }
 
-  .nav {
-    position: sticky; top: 0; z-index: 10;
-    background: #fff; box-shadow: 0 1px 3px rgba(15,23,42,.1);
-  }
-  .nav-inner {
-    max-width: 1040px; margin: 0 auto; padding: .7rem 1.2rem;
-    display: flex; align-items: center; gap: 1rem;
-  }
-  .brand { font-weight: 700; letter-spacing: .06em; color: var(--dark); text-decoration: none; font-size: 1.15rem; }
-  .brand span { color: var(--primary); }
-  .nav-links { margin-left: auto; display: flex; gap: 1rem; flex-wrap: wrap; }
-  .nav-links a { text-decoration: none; color: var(--dark-2); font-size: .92rem; }
-  .nav-links a:hover { color: var(--primary); }
-  .btn {
-    display: inline-block; padding: .6rem 1.2rem; border-radius: .6rem;
-    text-decoration: none; font-weight: 600; font-size: .95rem; border: 1px solid transparent;
-  }
-  .btn-primary { background: var(--primary); color: #fff; }
-  .btn-primary:hover { background: var(--primary-dark); }
-  .btn-outline { border-color: rgba(255,255,255,.5); color: #fff; }
-  .btn-outline:hover { background: rgba(255,255,255,.12); }
+    html {
+      scroll-behavior: smooth;
+    }
 
-  .hero {
-    background: linear-gradient(135deg, var(--dark) 0%, var(--primary-dark) 55%, var(--primary) 100%);
-    color: #fff; text-align: center; padding: 4.5rem 1.2rem 4rem;
-  }
-  .hero h1 { font-size: clamp(1.7rem, 4vw, 2.6rem); margin: 0 0 1rem; line-height: 1.25; }
-  .hero p { max-width: 780px; margin: 0 auto 1.8rem; color: #dbeafe; font-size: 1.05rem; }
-  .hero .cta { display: flex; gap: .8rem; justify-content: center; flex-wrap: wrap; }
-  .chips { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center; margin-top: 2.2rem; }
-  .chip {
-    background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18);
-    padding: .3rem .85rem; border-radius: 999px; font-size: .82rem; color: #eff6ff;
-  }
+    body {
+      margin: 0;
+      font-family:
+        "Segoe UI",
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        Arial,
+        sans-serif;
+      background: var(--bg);
+      color: var(--dark);
+      line-height: 1.65;
+    }
 
-  main { max-width: 1040px; margin: 0 auto; padding: 0 1.2rem; }
-  section { padding: 3.2rem 0; }
-  h2 { font-size: 1.55rem; margin: 0 0 1.1rem; }
-  h3 { font-size: 1.08rem; margin: 1.6rem 0 .4rem; }
-  .section-intro { color: var(--muted); max-width: 820px; margin-top: 0; }
+    a {
+      color: var(--primary);
+    }
 
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
-  .card {
-    background: #fff; border-radius: var(--radius); padding: 1.3rem 1.4rem;
-    box-shadow: 0 1px 3px rgba(15,23,42,.08);
-  }
-  .card .icon {
-    width: 44px; height: 44px; border-radius: 12px; font-size: 1.3rem;
-    display: flex; align-items: center; justify-content: center; margin-bottom: .8rem;
-    background: rgba(37,99,235,.12);
-  }
-  .card h3 { margin: 0 0 .35rem; }
-  .card p { margin: 0; color: var(--muted); font-size: .94rem; }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
 
-  .table-wrap { overflow-x: auto; background: #fff; border-radius: var(--radius); box-shadow: 0 1px 3px rgba(15,23,42,.08); }
-  table { border-collapse: collapse; width: 100%; font-size: .93rem; }
-  th, td { padding: .75rem 1rem; text-align: left; border-bottom: 1px solid #e2e8f0; }
-  thead th { background: #f8fafc; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
-  tbody tr:last-child td { border-bottom: 0; }
+    /* Navigation */
 
-  pre {
-    background: var(--dark); color: #e2e8f0; border-radius: var(--radius);
-    padding: 1.1rem 1.3rem; overflow-x: auto; font-size: .9rem;
-  }
-  code { font-family: ui-monospace, "Cascadia Code", Consolas, monospace; }
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      box-shadow: 0 1px 4px rgba(15, 23, 42, 0.12);
+    }
 
-  .steps { padding-left: 1.2rem; margin: 0; }
-  .steps li { margin-bottom: .5rem; }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0.7rem 1.2rem;
 
-  .faq details {
-    background: #fff; border-radius: var(--radius); margin-bottom: .7rem;
-    padding: 1rem 1.3rem; box-shadow: 0 1px 3px rgba(15,23,42,.08);
-  }
-  .faq summary { font-weight: 600; cursor: pointer; }
-  .faq p { color: var(--muted); margin-bottom: 0; }
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
 
-  footer {
-    background: var(--dark); color: #94a3b8; text-align: center;
-    padding: 2rem 1.2rem; font-size: .88rem; margin-top: 2rem;
-  }
-  footer a { color: #93c5fd; }
-</style>
+    .brand {
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      color: var(--dark);
+      text-decoration: none;
+      font-size: 1.05rem;
+      white-space: nowrap;
+    }
+
+    .brand span {
+      color: var(--primary);
+    }
+
+    .nav-links {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--dark-2);
+      font-size: 0.92rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    /* Buttons */
+
+    .btn {
+      display: inline-block;
+      padding: 0.65rem 1.2rem;
+      border-radius: 0.6rem;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border: 1px solid transparent;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff !important;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      border-color: rgba(255, 255, 255, 0.55);
+      color: #fff !important;
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    /* Hero */
+
+    .hero {
+      background:
+        linear-gradient(
+          135deg,
+          var(--dark) 0%,
+          var(--primary-dark) 55%,
+          var(--primary) 100%
+        );
+
+      color: #fff;
+      text-align: center;
+      padding: 5rem 1.2rem 4.2rem;
+    }
+
+    .hero h1 {
+      max-width: 1000px;
+      margin: 0 auto 1rem;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      line-height: 1.25;
+    }
+
+    .hero p {
+      max-width: 820px;
+      margin: 0 auto 1.8rem;
+      color: #dbeafe;
+      font-size: 1.05rem;
+    }
+
+    .hero .cta {
+      display: flex;
+      gap: 0.8rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+      margin-top: 2.2rem;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .chip {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      padding: 0.3rem 0.85rem;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      color: #eff6ff;
+    }
+
+    /* Main */
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.2rem;
+    }
+
+    section {
+      padding: 3.5rem 0;
+    }
+
+    h2 {
+      font-size: 1.65rem;
+      margin: 0 0 1.1rem;
+      line-height: 1.3;
+    }
+
+    h3 {
+      font-size: 1.08rem;
+      margin: 1.6rem 0 0.4rem;
+    }
+
+    .section-intro {
+      color: var(--muted);
+      max-width: 850px;
+      margin-top: 0;
+    }
+
+    /* Cards */
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(
+        auto-fit,
+        minmax(260px, 1fr)
+      );
+      gap: 1rem;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.4rem;
+      box-shadow:
+        0 1px 3px rgba(15, 23, 42, 0.08);
+
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow:
+        0 8px 20px rgba(15, 23, 42, 0.1);
+    }
+
+    .card .icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      font-size: 1.3rem;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin-bottom: 0.8rem;
+      background: rgba(37, 99, 235, 0.12);
+    }
+
+    .card h3 {
+      margin: 0 0 0.35rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    /* Tables */
+
+    .table-wrap {
+      overflow-x: auto;
+      background: var(--white);
+      border-radius: var(--radius);
+
+      box-shadow:
+        0 1px 3px rgba(15, 23, 42, 0.08);
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 0.93rem;
+    }
+
+    th,
+    td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    thead th {
+      background: #f8fafc;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+    }
+
+    tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    /* Code */
+
+    pre {
+      background: var(--dark);
+      color: #e2e8f0;
+      border-radius: var(--radius);
+      padding: 1.2rem 1.3rem;
+      overflow-x: auto;
+      font-size: 0.9rem;
+    }
+
+    code {
+      font-family:
+        ui-monospace,
+        "Cascadia Code",
+        Consolas,
+        monospace;
+    }
+
+    /* Steps */
+
+    .steps {
+      padding-left: 1.2rem;
+      margin: 0;
+    }
+
+    .steps li {
+      margin-bottom: 0.6rem;
+    }
+
+    /* FAQ */
+
+    .faq details {
+      background: var(--white);
+      border-radius: var(--radius);
+      margin-bottom: 0.7rem;
+      padding: 1rem 1.3rem;
+
+      box-shadow:
+        0 1px 3px rgba(15, 23, 42, 0.08);
+    }
+
+    .faq summary {
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .faq p {
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+
+    /* GitHub CTA */
+
+    .github-cta {
+      background:
+        linear-gradient(
+          135deg,
+          #172554,
+          #1d4ed8
+        );
+
+      color: #fff;
+      border-radius: var(--radius);
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+    }
+
+    .github-cta h2 {
+      margin-bottom: 0.6rem;
+    }
+
+    .github-cta p {
+      color: #dbeafe;
+      max-width: 700px;
+      margin: 0 auto 1.3rem;
+    }
+
+    /* Footer */
+
+    footer {
+      background: var(--dark);
+      color: #94a3b8;
+      text-align: center;
+      padding: 2.2rem 1.2rem;
+      font-size: 0.88rem;
+      margin-top: 2rem;
+    }
+
+    footer a {
+      color: #93c5fd;
+    }
+
+    /* Mobile */
+
+    @media (max-width: 760px) {
+      .nav-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        margin-left: 0;
+        width: 100%;
+        gap: 0.7rem;
+      }
+
+      .brand {
+        white-space: normal;
+      }
+
+      .hero {
+        padding-top: 3.5rem;
+      }
+
+      section {
+        padding: 2.6rem 0;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<nav class="nav">
-  <div class="nav-inner">
-    <a class="brand" href="#top"><span>👥 EMS</span> · Employee Management System</a>
-    <div class="nav-links">
-      <a href="#features">Features</a>
-      <a href="#stack">Tech Stack</a>
-      <a href="#quick-start">Quick Start</a>
-      <a href="#rbac">RBAC</a>
-      <a href="#faq">FAQ</a>
-      <a class="btn btn-primary" href="https://github.com/your-username/ems" style="padding:.35rem .9rem;">GitHub Repo</a>
-    </div>
-  </div>
-</nav>
+  <!-- ========================================================================
+       NAVIGATION
+       ======================================================================== -->
 
-<header class="hero" id="top">
-  <h1>Employee Management System in Spring Boot<br>— HRMS with Thymeleaf, Spring Security RBAC &amp; PostgreSQL</h1>
-  <p>
-    Open-source <strong>Spring Boot employee management system</strong> with full source code:
-    login and role-based access control with <strong>Spring Security</strong>, a server-rendered
-    <strong>Thymeleaf</strong> UI, <strong>Spring Data JPA</strong> CRUD with search, filtering and
-    pagination, <strong>PostgreSQL</strong> with Flyway migrations, and a production-ready
-    <strong>Docker Compose</strong> stack — verified by 27 automated tests.
-  </p>
-  <div class="cta">
-    <a class="btn btn-primary" href="https://github.com/your-username/ems">⭐ View Source on GitHub</a>
-    <a class="btn btn-outline" href="#quick-start">▶ One-Command Quick Start</a>
-  </div>
-  <div class="chips">
-    <span class="chip">Spring Boot 3.3</span>
-    <span class="chip">Java 21</span>
-    <span class="chip">Thymeleaf 3</span>
-    <span class="chip">Spring Security 6</span>
-    <span class="chip">Spring Data JPA</span>
-    <span class="chip">PostgreSQL 16</span>
-    <span class="chip">Flyway</span>
-    <span class="chip">Docker Compose</span>
-    <span class="chip">Bootstrap 5</span>
-    <span class="chip">JUnit 5 + MockMvc</span>
-  </div>
-</header>
+  <nav class="nav">
+    <div class="nav-inner">
 
-<main>
+      <a class="brand" href="#top">
+        <span>👥 EMS</span> · Employee Management System
+      </a>
 
-<section id="features">
-  <h2>Spring Boot HRMS Feature Highlights</h2>
-  <p class="section-intro">
-    Everything you expect from a real <strong>human resource management system project</strong> —
-    not a toy CRUD demo: multi-role security, server-side validation, auditing and
-    production-grade operations baked in.
-  </p>
-  <div class="grid">
-    <div class="card"><div class="icon">🔐</div>
-      <h3>Login &amp; Role-Based Access Control</h3>
-      <p>Custom login page, BCrypt password hashing, CSRF protection and four roles — ADMIN, HR, MANAGER, EMPLOYEE — enforced at URL, method and service layers.</p>
-    </div>
-    <div class="card"><div class="icon">👥</div>
-      <h3>Employee CRUD with Validation</h3>
-      <p>Create, view, edit and delete employee records with Bean Validation, unique email enforcement, auto-generated EMP codes and a full audit trail.</p>
-    </div>
-    <div class="card"><div class="icon">🔎</div>
-      <h3>Search, Filter, Sort, Paginate</h3>
-      <p>Server-side directory search across name, code, email and job title; department &amp; status filters — powered by JPA Specifications and Pageable.</p>
-    </div>
-    <div class="card"><div class="icon">🏢</div>
-      <h3>Department Management</h3>
-      <p>Full CRUD with unique name/code rules and delete protection while employees are assigned. Live headcounts across the app.</p>
-    </div>
-    <div class="card"><div class="icon">⚙️</div>
-      <h3>Admin Panel: Users &amp; Roles</h3>
-      <p>Create accounts, assign roles, enable or disable logins, reset passwords and link accounts 1:1 to employee records — with self-lockout protection.</p>
-    </div>
-    <div class="card"><div class="icon">🛡️</div>
-      <h3>Manager Department Scoping</h3>
-      <p>Managers can only edit employees of their own department — a real fine-grained authorization rule implemented in the service layer.</p>
-    </div>
-    <div class="card"><div class="icon">👤</div>
-      <h3>Employee Self-Service</h3>
-      <p>Every user gets a profile page and a secure password change flow that verifies the current password first.</p>
-    </div>
-    <div class="card"><div class="icon">📊</div>
-      <h3>HR Analytics Dashboard</h3>
-      <p>Headcount KPIs, employees-by-department distribution and recent hires — rendered server-side, no SPA complexity.</p>
-    </div>
-  </div>
-</section>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#stack">Tech Stack</a>
+        <a href="#quick-start">Quick Start</a>
+        <a href="#rbac">RBAC</a>
+        <a href="#learn">Learn</a>
+        <a href="#faq">FAQ</a>
 
-<section id="stack">
-  <h2>Tech Stack: Spring Boot 3, Thymeleaf, Spring Security, Spring Data JPA, PostgreSQL, Docker</h2>
-  <div class="table-wrap">
-    <table>
-      <thead><tr><th>Layer</th><th>Technology</th></tr></thead>
-      <tbody>
-        <tr><td>Runtime</td><td>Java 21 · Spring Boot 3.3</td></tr>
-        <tr><td>Web / View</td><td>Spring MVC · Thymeleaf 3 + Spring Security dialect · Bootstrap 5.3</td></tr>
-        <tr><td>Security</td><td>Spring Security 6 — form login, BCrypt, CSRF, method security, RBAC</td></tr>
-        <tr><td>Persistence</td><td>Spring Data JPA (Hibernate 6) · PostgreSQL 16 · Flyway migrations</td></tr>
-        <tr><td>Operations</td><td>Actuator health probes · graceful shutdown · Docker multi-stage image</td></tr>
-        <tr><td>Testing</td><td>JUnit 5 · Mockito · MockMvc · spring-security-test · H2</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
+        <a
+          class="btn btn-primary"
+          href="https://github.com/imrajeevnayan/employee-management-system"
+          target="_blank"
+          rel="noopener"
+          style="padding:.35rem .9rem;"
+        >
+          GitHub Repo
+        </a>
+      </div>
 
-<section id="quick-start">
-  <h2>Run the Employee Management System with Docker Compose</h2>
-  <p class="section-intro">
-    One command provisions PostgreSQL 16, applies the Flyway schema migration, boots the app
-    in a non-root container with a health check, and seeds demo data — 4 departments,
-    10 employees and one login per role.
-  </p>
-  <pre><code>git clone https://github.com/your-username/ems.git
-cd ems
+    </div>
+  </nav>
+
+
+  <!-- ========================================================================
+       HERO
+       ======================================================================== -->
+
+  <header class="hero" id="top">
+
+    <h1>
+      Employee Management System in Spring Boot
+      <br>
+      — HRMS with Thymeleaf, Spring Security RBAC &amp; PostgreSQL
+    </h1>
+
+    <p>
+      Open-source
+      <strong>Employee Management System</strong>
+      with full source code:
+      login and role-based access control with
+      <strong>Spring Security</strong>,
+      server-rendered
+      <strong>Thymeleaf</strong>
+      UI,
+      <strong>Spring Data JPA</strong>
+      CRUD with search, filtering and pagination,
+      <strong>PostgreSQL</strong>
+      with Flyway migrations,
+      and
+      <strong>Docker Compose</strong>
+      support.
+    </p>
+
+    <div class="cta">
+
+      <a
+        class="btn btn-primary"
+        href="https://github.com/imrajeevnayan/employee-management-system"
+        target="_blank"
+        rel="noopener"
+      >
+        ⭐ View Source on GitHub
+      </a>
+
+      <a
+        class="btn btn-outline"
+        href="#quick-start"
+      >
+        ▶ Quick Start
+      </a>
+
+    </div>
+
+    <div class="chips">
+      <span class="chip">Spring Boot 3</span>
+      <span class="chip">Java 21</span>
+      <span class="chip">Thymeleaf</span>
+      <span class="chip">Spring Security 6</span>
+      <span class="chip">Spring Data JPA</span>
+      <span class="chip">PostgreSQL</span>
+      <span class="chip">Flyway</span>
+      <span class="chip">Docker Compose</span>
+      <span class="chip">Bootstrap 5</span>
+      <span class="chip">JUnit 5</span>
+    </div>
+
+  </header>
+
+
+  <main>
+
+    <!-- ======================================================================
+         FEATURES
+         ====================================================================== -->
+
+    <section id="features">
+
+      <h2>
+        Employee Management System — Features
+      </h2>
+
+      <p class="section-intro">
+        A complete
+        <strong>Employee Management System and HRMS project</strong>
+        designed to demonstrate real-world Spring Boot application
+        development, authentication, authorization, database management
+        and CRUD operations.
+      </p>
+
+      <div class="grid">
+
+        <div class="card">
+          <div class="icon">🔐</div>
+          <h3>Login &amp; Role-Based Access Control</h3>
+          <p>
+            Secure login with Spring Security, password hashing,
+            CSRF protection and role-based authorization.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="icon">👥</div>
+          <h3>Employee CRUD</h3>
+          <p>
+            Create, view, update and delete employee records with
+            validation and database persistence.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="icon">🔎</div>
+          <h3>Search &amp; Pagination</h3>
+          <p>
+            Search employee records and filter results using
+            Spring Data JPA and server-side pagination.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="icon">🏢</div>
+          <h3>Department Management</h3>
+          <p>
+            Create and manage departments and associate employees
+            with their respective departments.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="icon">⚙️</div>
+          <h3>User &amp; Role Management</h3>
+          <p>
+            Administrative functionality for managing application
+            users, roles and account access.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="icon">🛡️</div>
+          <h3>Manager Authorization</h3>
+          <p>
+            Fine-grained authorization rules can restrict managers
+            to employees within their assigned department.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="icon">👤</div>
+          <h3>Employee Self-Service</h3>
+          <p>
+            Employees can access their own profile and manage
+            supported account settings securely.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="icon">📊</div>
+          <h3>HR Dashboard</h3>
+          <p>
+            Dashboard views for employee counts, departments
+            and important HR management information.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ======================================================================
+         TECH STACK
+         ====================================================================== -->
+
+    <section id="stack">
+
+      <h2>
+        Technology Stack — Spring Boot Employee Management System
+      </h2>
+
+      <p class="section-intro">
+        Modern Java and Spring technologies are used to build the
+        Employee Management System.
+      </p>
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Layer</th>
+              <th>Technology</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <tr>
+              <td>Language</td>
+              <td>Java 21</td>
+            </tr>
+
+            <tr>
+              <td>Backend</td>
+              <td>Spring Boot 3 · Spring MVC</td>
+            </tr>
+
+            <tr>
+              <td>Frontend</td>
+              <td>Thymeleaf · Bootstrap 5</td>
+            </tr>
+
+            <tr>
+              <td>Security</td>
+              <td>
+                Spring Security 6 · Authentication · RBAC · CSRF
+              </td>
+            </tr>
+
+            <tr>
+              <td>Persistence</td>
+              <td>
+                Spring Data JPA · Hibernate
+              </td>
+            </tr>
+
+            <tr>
+              <td>Database</td>
+              <td>
+                PostgreSQL
+              </td>
+            </tr>
+
+            <tr>
+              <td>Database Migration</td>
+              <td>
+                Flyway
+              </td>
+            </tr>
+
+            <tr>
+              <td>Testing</td>
+              <td>
+                JUnit 5 · Mockito · MockMvc
+              </td>
+            </tr>
+
+            <tr>
+              <td>Deployment</td>
+              <td>
+                Docker · Docker Compose
+              </td>
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+
+    <!-- ======================================================================
+         QUICK START
+         ====================================================================== -->
+
+    <section id="quick-start">
+
+      <h2>
+        How to Run the Employee Management System
+      </h2>
+
+      <p class="section-intro">
+        Clone the GitHub repository and start the application using
+        Docker Compose.
+      </p>
+
+      <pre><code>git clone https://github.com/imrajeevnayan/employee-management-system.git
+
+cd employee-management-system
+
 docker compose up --build
 
-# open http://localhost:8080</code></pre>
+# Open:
+# http://localhost:8080</code></pre>
 
-  <h3>Demo login credentials</h3>
-  <div class="table-wrap">
-    <table>
-      <thead><tr><th>Username</th><th>Password</th><th>Role</th><th>Demonstrates</th></tr></thead>
-      <tbody>
-        <tr><td><code>admin</code></td><td><code>Admin@123</code></td><td>ADMIN</td><td>Full access incl. user &amp; role management</td></tr>
-        <tr><td><code>hr.kavya</code></td><td><code>Hr@12345</code></td><td>HR</td><td>Employee + department management, no user admin</td></tr>
-        <tr><td><code>mgr.arjun</code></td><td><code>Manager@123</code></td><td>MANAGER</td><td>Directory viewing + editing own department only</td></tr>
-        <tr><td><code>emp.priya</code></td><td><code>Employee@123</code></td><td>EMPLOYEE</td><td>Self-service profile, own record only</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <p style="color:var(--muted);font-size:.9rem;">
-    Prefer running without containers? <code>docker compose up -d db</code> then
-    <code>mvn spring-boot:run</code>. Tests need no database at all: <code>mvn verify</code>.
-  </p>
-</section>
+      <h3>
+        Run Without Docker
+      </h3>
 
-<section id="rbac">
-  <h2>Role-Based Access Control (RBAC) Matrix — Spring Security Example</h2>
-  <p class="section-intro">
-    Authorization is enforced in three layers so the rules survive refactoring:
-    URL <code>requestMatchers</code> rules, <code>@PreAuthorize</code> method security,
-    and service-level checks for fine-grained rules (manager scoping, self-access).
-  </p>
-  <div class="table-wrap">
-    <table>
-      <thead><tr><th>Capability</th><th>ADMIN</th><th>HR</th><th>MANAGER</th><th>EMPLOYEE</th></tr></thead>
-      <tbody>
-        <tr><td>Dashboard</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
-        <tr><td>View employee directory &amp; details</td><td>✅</td><td>✅</td><td>✅</td><td>own record only</td></tr>
-        <tr><td>Create employees</td><td>✅</td><td>✅</td><td>❌</td><td>❌</td></tr>
-        <tr><td>Edit employees</td><td>✅</td><td>✅</td><td>own department only</td><td>❌</td></tr>
-        <tr><td>Delete employees</td><td>✅</td><td>❌</td><td>❌</td><td>❌</td></tr>
-        <tr><td>Departments CRUD</td><td>✅</td><td>✅</td><td>view only</td><td>❌</td></tr>
-        <tr><td>Manage users, roles &amp; passwords</td><td>✅</td><td>❌</td><td>❌</td><td>❌</td></tr>
-        <tr><td>Own profile / password change</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
+      <pre><code>mvn spring-boot:run</code></pre>
 
-<section id="learn">
-  <h2>Spring Boot Project for Resume &amp; Interviews — What You’ll Learn</h2>
-  <ul class="steps">
-    <li>Building a layered <strong>Spring Boot CRUD application</strong> (controller → service → repository) with validated form DTOs.</li>
-    <li>Implementing <strong>login and RBAC with Spring Security 6</strong> — URL rules, method security, custom authorization checks.</li>
-    <li>Server-side <strong>search, filtering, sorting and pagination</strong> with Spring Data JPA Specifications and <code>Pageable</code>.</li>
-    <li>Composable <strong>Thymeleaf layouts with a role-aware navigation</strong> (<code>sec:authorize</code>).</li>
-    <li>Shipping <strong>Spring Boot + PostgreSQL + Flyway + Docker Compose</strong> with health checks and non-root containers.</li>
-    <li>Testing security rules with <strong>MockMvc and spring-security-test</strong> (27 tests included).</li>
-  </ul>
-</section>
+      <h3>
+        Run Tests
+      </h3>
 
-<section id="faq" class="faq">
-  <h2>FAQ — Employee Management System in Spring Boot</h2>
-  <details open>
-    <summary>How do I run this Spring Boot employee management system?</summary>
-    <p>Run <code>docker compose up --build</code> in the <code>ems</code> folder, then open http://localhost:8080 and sign in with <code>admin / Admin@123</code>. The database, schema and demo data are provisioned automatically.</p>
-  </details>
-  <details>
-    <summary>What are the default login credentials?</summary>
-    <p>Four seeded accounts — <code>admin / Admin@123</code>, <code>hr.kavya / Hr@12345</code>, <code>mgr.arjun / Manager@123</code>, <code>emp.priya / Employee@123</code> — one per role. The admin password can be overridden before first boot via <code>EMS_ADMIN_PASSWORD</code>.</p>
-  </details>
-  <details>
-    <summary>How is role-based access control implemented in Spring Security?</summary>
-    <p>Three enforcement layers: URL rules in <code>SecurityConfig</code>, <code>@PreAuthorize</code> on mutating methods, and service checks such as <code>assertCanManage</code> which restricts managers to their own department.</p>
-  </details>
-  <details>
-    <summary>Which database does it use — can I use MySQL or H2?</summary>
-    <p>PostgreSQL 16 via Flyway with <code>ddl-auto: validate</code>. The automated test suite already runs on H2 in PostgreSQL mode; swapping to MySQL only requires changing the JDBC URL/driver and adjusting the migration dialect.</p>
-  </details>
-  <details>
-    <summary>How are passwords stored?</summary>
-    <p>As BCrypt hashes via Spring Security’s <code>PasswordEncoder</code>, with an 8–64 character strength policy (upper, lower, digit, special) enforced on create, reset and change flows.</p>
-  </details>
-  <details>
-    <summary>Does the project include tests?</summary>
-    <p>Yes — 27 tests covering the RBAC matrix, the login flow, Thymeleaf page rendering, service business rules, repositories and Flyway schema validation. Run them with <code>mvn verify</code>; no external database needed.</p>
-  </details>
-</section>
+      <pre><code>mvn verify</code></pre>
 
-</main>
+    </section>
 
-<footer>
-  <p>
-    <strong>EMS — Employee Management System</strong> · Spring Boot · Thymeleaf · Spring Security ·
-    Spring Data JPA · PostgreSQL · Docker
-  </p>
-  <p>
-    <a href="https://github.com/your-username/ems">Source code on GitHub</a> ·
-    <a href="https://github.com/your-username/ems/blob/main/README.md">Full documentation (README)</a>
-  </p>
-  <p>© 2026 EMS Project</p>
-</footer>
+
+    <!-- ======================================================================
+         RBAC
+         ====================================================================== -->
+
+    <section id="rbac">
+
+      <h2>
+        Role-Based Access Control — Spring Security RBAC
+      </h2>
+
+      <p class="section-intro">
+        The Employee Management System demonstrates how Spring Security
+        can be used to implement authentication and role-based
+        authorization.
+      </p>
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Capability</th>
+              <th>ADMIN</th>
+              <th>HR</th>
+              <th>MANAGER</th>
+              <th>EMPLOYEE</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <tr>
+              <td>Dashboard</td>
+              <td>✅</td>
+              <td>✅</td>
+              <td>✅</td>
+              <td>✅</td>
+            </tr>
+
+            <tr>
+              <td>View Employee Directory</td>
+              <td>✅</td>
+              <td>✅</td>
+              <td>✅</td>
+              <td>Own record</td>
+            </tr>
+
+            <tr>
+              <td>Create Employees</td>
+              <td>✅</td>
+              <td>✅</td>
+              <td>❌</td>
+              <td>❌</td>
+            </tr>
+
+            <tr>
+              <td>Edit Employees</td>
+              <td>✅</td>
+              <td>✅</td>
+              <td>Own department</td>
+              <td>❌</td>
+            </tr>
+
+            <tr>
+              <td>Delete Employees</td>
+              <td>✅</td>
+              <td>❌</td>
+              <td>❌</td>
+              <td>❌</td>
+            </tr>
+
+            <tr>
+              <td>Department Management</td>
+              <td>✅</td>
+              <td>✅</td>
+              <td>View</td>
+              <td>❌</td>
+            </tr>
+
+            <tr>
+              <td>User &amp; Role Management</td>
+              <td>✅</td>
+              <td>❌</td>
+              <td>❌</td>
+              <td>❌</td>
+            </tr>
+
+            <tr>
+              <td>Own Profile</td>
+              <td>✅</td>
+              <td>✅</td>
+              <td>✅</td>
+              <td>✅</td>
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+
+    <!-- ======================================================================
+         LEARNING / RESUME
+         ====================================================================== -->
+
+    <section id="learn">
+
+      <h2>
+        Spring Boot Employee Management System Project for Resume &amp; Interviews
+      </h2>
+
+      <p class="section-intro">
+        This project is useful for developers learning Spring Boot,
+        Java backend development, Spring Security and database-driven
+        web application development.
+      </p>
+
+      <ul class="steps">
+
+        <li>
+          Building a layered
+          <strong>Spring Boot CRUD application</strong>
+          using controllers, services and repositories.
+        </li>
+
+        <li>
+          Implementing
+          <strong>Spring Security authentication and RBAC</strong>.
+        </li>
+
+        <li>
+          Creating
+          <strong>employee and department management</strong>
+          functionality.
+        </li>
+
+        <li>
+          Implementing
+          <strong>search, filtering, sorting and pagination</strong>.
+        </li>
+
+        <li>
+          Using
+          <strong>Thymeleaf</strong>
+          for server-side HTML rendering.
+        </li>
+
+        <li>
+          Connecting Spring Boot with
+          <strong>PostgreSQL using Spring Data JPA</strong>.
+        </li>
+
+        <li>
+          Managing database changes with
+          <strong>Flyway migrations</strong>.
+        </li>
+
+        <li>
+          Running the application using
+          <strong>Docker and Docker Compose</strong>.
+        </li>
+
+        <li>
+          Testing Spring applications using
+          <strong>JUnit, Mockito and MockMvc</strong>.
+        </li>
+
+      </ul>
+
+    </section>
+
+
+    <!-- ======================================================================
+         GITHUB CTA
+         ====================================================================== -->
+
+    <section>
+
+      <div class="github-cta">
+
+        <h2>
+          ⭐ Explore the Employee Management System Source Code
+        </h2>
+
+        <p>
+          View the complete Spring Boot Employee Management System
+          source code, documentation, issues and project updates on GitHub.
+        </p>
+
+        <a
+          class="btn btn-primary"
+          href="https://github.com/imrajeevnayan/employee-management-system"
+          target="_blank"
+          rel="noopener"
+        >
+          View GitHub Repository
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- ======================================================================
+         FAQ
+         ====================================================================== -->
+
+    <section id="faq" class="faq">
+
+      <h2>
+        FAQ — Employee Management System
+      </h2>
+
+      <details open>
+
+        <summary>
+          What is an Employee Management System?
+        </summary>
+
+        <p>
+          An Employee Management System is software used to manage
+          employee records, departments, user accounts, roles and
+          other human resource management activities.
+        </p>
+
+      </details>
+
+
+      <details>
+
+        <summary>
+          How do I run this Spring Boot Employee Management System?
+        </summary>
+
+        <p>
+          Clone the GitHub repository, enter the
+          <code>employee-management-system</code> directory and run
+          <code>docker compose up --build</code>. Then open
+          <code>http://localhost:8080</code>.
+        </p>
+
+      </details>
+
+
+      <details>
+
+        <summary>
+          What technologies are used in this project?
+        </summary>
+
+        <p>
+          The project uses Java, Spring Boot, Spring MVC, Thymeleaf,
+          Spring Security, Spring Data JPA, PostgreSQL, Flyway,
+          Bootstrap, Docker and JUnit.
+        </p>
+
+      </details>
+
+
+      <details>
+
+        <summary>
+          How is role-based access control implemented?
+        </summary>
+
+        <p>
+          Spring Security is used to implement authentication and
+          authorization. Access can be controlled using URL rules,
+          method-level security and application service rules.
+        </p>
+
+      </details>
+
+
+      <details>
+
+        <summary>
+          Which database does the project use?
+        </summary>
+
+        <p>
+          The Employee Management System uses PostgreSQL for persistent
+          application data and Flyway for database migrations.
+        </p>
+
+      </details>
+
+
+      <details>
+
+        <summary>
+          Is the Employee Management System open source?
+        </summary>
+
+        <p>
+          Yes. The source code is available on GitHub:
+          <a
+            href="https://github.com/imrajeevnayan/employee-management-system"
+            target="_blank"
+            rel="noopener"
+          >
+            Employee Management System GitHub Repository
+          </a>.
+        </p>
+
+      </details>
+
+    </section>
+
+  </main>
+
+
+  <!-- ========================================================================
+       FOOTER
+       ======================================================================== -->
+
+  <footer>
+
+    <p>
+      <strong>
+        👥 EMS — Employee Management System
+      </strong>
+      · Spring Boot · Thymeleaf · Spring Security ·
+      Spring Data JPA · PostgreSQL · Docker
+    </p>
+
+    <p>
+
+      <a
+        href="https://github.com/imrajeevnayan/employee-management-system"
+        target="_blank"
+        rel="noopener"
+      >
+        Source Code on GitHub
+      </a>
+
+      ·
+
+      <a
+        href="https://github.com/imrajeevnayan/employee-management-system/blob/main/README.md"
+        target="_blank"
+        rel="noopener"
+      >
+        Full Documentation
+      </a>
+
+    </p>
+
+    <p>
+      © 2026 Employee Management System Project
+    </p>
+
+  </footer>
 
 </body>
 </html>
