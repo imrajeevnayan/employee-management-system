@@ -2,12 +2,21 @@ name: Keep Render Alive
 
 on:
   schedule:
+    # Runs every 10 minutes
     - cron: '*/10 * * * *'
 
 jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
-      - name: Ping Render App
+      - name: Ping Render App (health endpoint)
         run: |
-          curl -s -o /dev/null -w "%{http_code}" https://employee-management-system-22by.onrender.com
+          # Ping the health endpoint (if actuator is enabled)
+          curl -s -o /dev/null -w "%{http_code}" --max-time 10 https://employee-management-system-22by.onrender.com/actuator/health
+        continue-on-error: true
+
+      - name: Fallback ping to root (if health endpoint fails)
+        run: |
+          # If the health endpoint fails, ping the root as a fallback
+          curl -s -o /dev/null -w "%{http_code}" --max-time 10 https://employee-management-system-22by.onrender.com
+        continue-on-error: true
