@@ -2,7 +2,7 @@ name: Keep Render Alive
 
 on:
   schedule:
-    - cron: '*/10 * * * *'
+    - cron: '7,17,27,37,47,57 * * * *'
   workflow_dispatch:
 
 jobs:
@@ -10,25 +10,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Ping Render
+      - name: Wake Render
         run: |
-          echo "Pinging Render..."
+          URL="https://employee-management-system-22by.onrender.com/actuator/health"
+
+          echo "Pinging $URL"
 
           HTTP_STATUS=$(curl \
+            --location \
             --silent \
             --show-error \
-            --output /dev/null \
+            --output /tmp/response.txt \
             --write-out "%{http_code}" \
-            --max-time 120 \
-            --retry 3 \
-            --retry-delay 5 \
-            https://employee-management-system-22by.onrender.com/actuator/health)
+            --connect-timeout 30 \
+            --max-time 180 \
+            --retry 2 \
+            --retry-delay 10 \
+            "$URL") || true
 
-          echo "HTTP Status: $HTTP_STATUS"
+          echo "HTTP status: $HTTP_STATUS"
+          echo "Response:"
+          cat /tmp/response.txt || true
 
-          if [ "$HTTP_STATUS" -ge 200 ] && [ "$HTTP_STATUS" -lt 300 ]; then
-            echo "✅ Render is alive"
+          if [ "$HTTP_STATUS" = "200" ]; then
+            echo "✅ Render responded with HTTP 200"
           else
-            echo "❌ Render returned HTTP $HTTP_STATUS"
+            echo "❌ Render did not respond successfully"
             exit 1
           fi
