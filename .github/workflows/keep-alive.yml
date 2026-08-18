@@ -2,21 +2,33 @@ name: Keep Render Alive
 
 on:
   schedule:
-    # Runs every 10 minutes
     - cron: '*/10 * * * *'
+  workflow_dispatch:
 
 jobs:
   ping:
     runs-on: ubuntu-latest
-    steps:
-      - name: Ping Render App (health endpoint)
-        run: |
-          # Ping the health endpoint (if actuator is enabled)
-          curl -s -o /dev/null -w "%{http_code}" --max-time 10 https://employee-management-system-22by.onrender.com/actuator/health
-        continue-on-error: true
 
-      - name: Fallback ping to root (if health endpoint fails)
+    steps:
+      - name: Ping Render health endpoint
         run: |
-          # If the health endpoint fails, ping the root as a fallback
-          curl -s -o /dev/null -w "%{http_code}" --max-time 10 https://employee-management-system-22by.onrender.com
-        continue-on-error: true
+          echo "Pinging Render..."
+
+          HTTP_STATUS=$(curl \
+            --silent \
+            --show-error \
+            --output /dev/null \
+            --write-out "%{http_code}" \
+            --max-time 120 \
+            --retry 3 \
+            --retry-delay 5 \
+            https://employee-management-system-22by.onrender.com/actuator/health)
+
+          echo "HTTP status: $HTTP_STATUS"
+
+          if [ "$HTTP_STATUS" -ge 200 ] && [ "$HTTP_STATUS" -lt 300 ]; then
+            echo "Render is alive."
+          else
+            echo "Render returned HTTP $HTTP_STATUS"
+            exit 1
+          fi
