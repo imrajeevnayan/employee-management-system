@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Ping Render health endpoint
+      - name: Ping Render
         run: |
           echo "Pinging Render..."
 
@@ -24,11 +24,11 @@ jobs:
             --retry-delay 5 \
             https://employee-management-system-22by.onrender.com/actuator/health)
 
-          echo "HTTP status: $HTTP_STATUS"
+          echo "HTTP Status: $HTTP_STATUS"
 
           if [ "$HTTP_STATUS" -ge 200 ] && [ "$HTTP_STATUS" -lt 300 ]; then
-            echo "Render is alive."
+            echo "✅ Render is alive"
           else
-            echo "Render returned HTTP $HTTP_STATUS"
+            echo "❌ Render returned HTTP $HTTP_STATUS"
             exit 1
           fi
